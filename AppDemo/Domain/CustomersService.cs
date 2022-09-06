@@ -1,12 +1,17 @@
-﻿namespace AppDemo.Domain
+﻿using AutoMapper;
+
+namespace AppDemo.Domain
 {
     public class CustomersService
     {
         private readonly ICustomersRepository _customersRepository;
+        private readonly IMapper mapper;
 
-        public CustomersService(ICustomersRepository customersRepository)
+        public CustomersService(ICustomersRepository customersRepository
+            , IMapper mapper)
         {
             _customersRepository = customersRepository;
+            this.mapper = mapper;
         }
         public bool Add(CustomerDto customer)
         {
@@ -15,7 +20,7 @@
                 throw new ArgumentNullException(nameof(customer));
             }
 
-            var newCustomer = customer.ToCustomer();
+            var newCustomer = mapper.Map<Customer>(customer);
             //Validation
 
             _customersRepository.Add(newCustomer);
@@ -26,7 +31,7 @@
         public List<CustomerDto> Get(string name, string email)
         {
             List<Customer> customers = _customersRepository.Get(name, email);
-            return customers.Select(c => c.ToCustomerDto()).ToList();
+            return mapper.Map<List<CustomerDto>>(customers);
         }
     }
 

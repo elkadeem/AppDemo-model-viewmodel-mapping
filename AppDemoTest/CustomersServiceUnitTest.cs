@@ -36,5 +36,10 @@ namespace AppDemoTest
         {
             
         }
+
+        public List<Customer> Get(string name, string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

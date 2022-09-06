@@ -1,0 +1,35 @@
+﻿@page
+@model AppDemo.Pages.Customers.CreateModel
+@{
+}
+
+<form method="post">
+    <div>
+        <label asp-for="Customer.Name"></label>
+        <input asp-for="Customer.Name" />
+    </div>
+
+    <div>
+        <label asp-for="Customer.Email"></label>
+        <input asp-for="Customer.Email" />
+    </div>
+
+    <div>
+        <label asp-for="Customer.Phone"></label>
+        <input asp-for="Customer.Phone" />
+    </div>
+
+    <div>
+        <label asp-for="Customer.Address"></label>
+        <input asp-for="Customer.Address" />
+    </div>
+
+    <div>
+        <label asp-for="Customer.Name"></label>
+        <input asp-for="Customer.Name" />
+    </div>
+
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
