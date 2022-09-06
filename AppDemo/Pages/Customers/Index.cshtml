@@ -1,0 +1,24 @@
+﻿@page
+@model AppDemo.Pages.Customers.IndexModel
+@{
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => Model.Customers[0].Name)</th>
+            <th>@Html.DisplayNameFor(model => Model.Customers[0].Email)</th>
+            <th>@Html.DisplayNameFor(model => Model.Customers[0].Phone)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td>@customer.Name</td>
+                <td>@customer.Email</td>
+                <td>@customer.Phone</td>
+            </tr>
+        }
+    </tbody>
+</table>
