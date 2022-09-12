@@ -1,4 +1,6 @@
 using AppDemo.Domain;
+using AutoMapper;
+using Moq;
 
 namespace AppDemoTest
 {
@@ -7,7 +9,9 @@ namespace AppDemoTest
         [Fact]
         public void Add_Customer_Will_Throw_Exception_When_Customer_Is_Null ()
         {
-            CustomersService customersService = new CustomersService(new CustomersFakeRepo());
+            var repoSub = new Mock<ICustomersRepository>();
+            var mapperSub = new Mock<IMapper>();
+            CustomersService customersService = new CustomersService(repoSub.Object, mapperSub.Object);
             Assert.Throws<ArgumentNullException>(() => customersService.Add(null));
 
         }
@@ -17,7 +21,9 @@ namespace AppDemoTest
         {
             //AAA
             //Arrange
-            CustomersService customersService = new CustomersService(new CustomersFakeRepo());
+            var repoSub = new Mock<ICustomersRepository>();
+            var mapperSub = new Mock<IMapper>();
+            CustomersService customersService = new CustomersService(repoSub.Object, mapperSub.Object);
             CustomerDto customerDto = new CustomerDto {
                 Id = Guid.NewGuid(),
                 Name = "Test",
@@ -27,19 +33,9 @@ namespace AppDemoTest
             var result = customersService.Add(customerDto);
             //Assert
             Assert.True(result);
+            repoSub.Verify(c => c.Add(It.IsAny<Customer>()), Times.Once);
         }
     }
 
-    public class CustomersFakeRepo : ICustomersRepository
-    {
-        public void Add(Customer customer)
-        {
-            
-        }
-
-        public List<Customer> Get(string name, string email)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    
 }
